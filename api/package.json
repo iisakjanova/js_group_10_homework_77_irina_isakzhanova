@@ -10,7 +10,12 @@
   },
   "author": "Irina Isakzhanova",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "express": "^4.17.1",
+    "nanoid": "^3.1.29"
+  },
   "devDependencies": {
     "nodemon": "^2.0.13"
   }
