@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/messages', messages);
+app.use(express.static('public'));
 
 (async () => {
     await fileDb.init();
