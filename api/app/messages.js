@@ -38,4 +38,22 @@ router.post('/', upload.single('image'), (req, res) => {
 
 });
 
+router.get('/', (req, res) => {
+    let messages;
+
+    if (req.query.datetime) {
+        const date = new Date(req.query.datetime);
+
+        if (isNaN(date.getDate())) {
+            res.status(400).send({"error": "Invalid date"});
+        } else {
+            messages = fileDb.getItemsSinceDatetime(req.query.datetime);
+        }
+    } else {
+        messages = fileDb.getItems(30);
+    }
+
+    res.send(messages);
+});
+
 module.exports = router;
