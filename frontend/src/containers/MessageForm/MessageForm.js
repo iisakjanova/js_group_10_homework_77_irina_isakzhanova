@@ -62,7 +62,7 @@ const MessageForm = () => {
     return (
         <Grid item>
             <Paper className={classes.root}>
-                <Typography variant="h6" className={classes.title}>Send message</Typography>
+                <Typography variant="h6" className={classes.title}>Post reply</Typography>
                 <form onSubmit={handleFormSubmit}>
                     <Grid container direction="column" spacing={2}>
                         <Grid item>

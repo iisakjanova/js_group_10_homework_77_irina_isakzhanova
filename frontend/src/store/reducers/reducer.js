@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
             return {...state, loading: true};
         case GET_MESSAGES_SUCCESS: {
             const lastDatetime = action.payload.length > 0
-                ? action.payload[action.payload.length - 1].datetime
+                ? action.payload[0].datetime
                 : state.lastDatetime;
             return {
                 ...state,
@@ -41,14 +41,14 @@ const reducer = (state = initialState, action) => {
             return {...state, loading: false, error: action.payload};
         case GET_NEW_MESSAGES_SUCCESS: {
             const lastDatetime = action.payload.length > 0
-                ? action.payload[action.payload.length - 1].datetime
+                ? action.payload[0].datetime
                 : state.lastDatetime;
             return {
                 ...state,
                 loading: false,
                 messages: [
-                    ...state.messages,
-                    ...action.payload
+                    ...action.payload,
+                    ...state.messages
                 ],
                 lastDatetime
             };

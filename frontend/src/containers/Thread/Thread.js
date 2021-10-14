@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import MessageForm from "../MessageForm/MessageForm";
 import {getMessages, getNewMessages} from "../../store/actions/actions";
+import Messages from "../Messages/Messages";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -56,7 +57,8 @@ const Thread = () => {
                 <Box className={classes.title}>
                     <Typography variant="h5">Thread: Comics and cartoons</Typography>
                 </Box>
-                <Grid container direction="column" spacing={2}>
+                <Grid container direction="column" spacing={3}>
+                    <Messages />
                     <MessageForm/>
                 </Grid>
             </Box>

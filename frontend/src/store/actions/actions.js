@@ -39,7 +39,14 @@ export const getMessages = () => {
         try {
             dispatch(getMessagesRequest());
             const response = await axiosApi.get('/messages');
-            dispatch(getMessagesSuccess(response.data));
+
+            const sortedData = response.data.sort((a, b) => {
+                let da = new Date(a.datetime);
+                let db = new Date(b.datetime);
+                return db - da;
+            });
+
+            dispatch(getMessagesSuccess(sortedData));
         } catch (error) {
             dispatch(getMessagesFailure(error));
         }
@@ -52,7 +59,14 @@ export const getNewMessages = () => {
 
         try {
             const response = await axiosApi.get(`/messages?datetime=${lastDatetime}`);
-            dispatch(getNewMessagesSuccess(response.data));
+
+            const sortedData = response.data.sort((a, b) => {
+                const da = new Date(a.datetime);
+                const db = new Date(b.datetime);
+                return db - da;
+            });
+
+            dispatch(getNewMessagesSuccess(sortedData));
         } catch (error) {
             dispatch(getNewMessagesFailure(error));
         }
