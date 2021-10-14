@@ -30,6 +30,7 @@ export const postMessage = (data) => {
             dispatch(postMessageSuccess());
         } catch (error) {
             dispatch(postMessageFailure(error.response.data.error));
+            throw new Error(error.response.data.error);
         }
     };
 };

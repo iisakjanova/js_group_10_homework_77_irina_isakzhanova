@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Grid, makeStyles, Paper, Typography, TextField, Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-import {getNewMessages, postMessage} from "../../store/actions/actions";
 
+import {getNewMessages, postMessage} from "../../store/actions/actions";
 import FileInput from "../../components/UI/FileInput/FileInput";
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +26,7 @@ const MessageForm = () => {
     const dispatch = useDispatch();
 
     const [message, setMessage] = useState(initialState);
+    const [fileInputKey, setFileInputKey] = useState(null);
 
     const handleInputChange = e => {
         const {name, value} = e.target;
@@ -54,10 +55,12 @@ const MessageForm = () => {
             formData.append(key, message[key]);
         });
 
-        await dispatch(postMessage(formData));
-
-        if (message.message) {
+        try {
+            await dispatch(postMessage(formData));
             setMessage(initialState);
+            setFileInputKey(Math.random());
+        } catch (e) {
+            console.log(e.message);
         }
 
         dispatch(getNewMessages());
@@ -94,6 +97,7 @@ const MessageForm = () => {
                         </Grid>
                         <Grid item xs>
                             <FileInput
+                                key={fileInputKey}
                                 label="Image"
                                 name="image"
                                 onChange={handleFileChange}
