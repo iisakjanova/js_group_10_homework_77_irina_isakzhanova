@@ -31,6 +31,8 @@ router.post('/', upload.single('image'), (req, res) => {
 
     if (req.file) {
         message.image = req.file.filename;
+        message.fileOriginalname = req.file.originalname;
+        message.fileSize = req.file.size;
     }
 
     const newMessage = fileDb.addItem(message);

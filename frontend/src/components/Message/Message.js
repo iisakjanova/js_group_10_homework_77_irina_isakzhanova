@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, makeStyles, Paper, Typography} from "@material-ui/core";
+import {Grid, Link, makeStyles, Paper, Typography} from "@material-ui/core";
 
 import {apiURL} from "../../config";
 
@@ -9,6 +9,9 @@ const useStyles = makeStyles(theme => ({
     },
     header: {
         marginBottom: theme.spacing(2),
+    },
+    content: {
+        flexWrap: 'nowrap',
     },
     imageWrapper: {
         width: '30%',
@@ -30,6 +33,10 @@ const Message = ({message}) => {
 
         image = (
             <Grid item className={classes.imageWrapper}>
+                <Typography variant="body2">
+                    file: <Link target="_blank" href={imageUrl}>{message.fileOriginalname}</Link>
+                </Typography>
+                <Typography variant="body2">({message.fileSize} bytes)</Typography>
                 <img src={imageUrl} className={classes.image}/>
             </Grid>
         );
@@ -44,7 +51,7 @@ const Message = ({message}) => {
                         <Typography variant="subtitle2">{message.datetime}</Typography>
                         <Typography variant="subtitle2">No. {message.id}</Typography>
                     </Grid>
-                    <Grid item container direction="row">
+                    <Grid item container direction="row" className={classes.content}>
                         {image}
                         <Grid item>
                             <Typography variant="body1">{message.message}</Typography>
