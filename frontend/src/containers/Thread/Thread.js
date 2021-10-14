@@ -4,7 +4,7 @@ import {Backdrop, Box, CircularProgress, Grid, makeStyles, Typography} from "@ma
 import {useDispatch, useSelector} from "react-redux";
 
 import MessageForm from "../MessageForm/MessageForm";
-import {getMessages, getNewMessages} from "../../store/actions/actions";
+import {getMessages} from "../../store/actions/actions";
 import Messages from "../Messages/Messages";
 
 const useStyles = makeStyles(theme => ({
@@ -21,22 +21,25 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+let interval;
+
 const Thread = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const loading = useSelector(state => state.loading);
+    const datetime = useSelector(state => state.lastDatetime);
 
     useEffect(() => {
         dispatch(getMessages());
     }, [dispatch]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            dispatch(getNewMessages());
+        interval = setInterval(() => {
+            dispatch(getMessages(datetime));
         }, 3000);
         return () => clearInterval(interval);
-    }, [dispatch]);
+    }, [dispatch, datetime]);
 
     const showBackdrop = () => {
         if (!loading) {
@@ -44,7 +47,7 @@ const Thread = () => {
         }
 
         return (
-            <Backdrop open={loading} className={classes.backdrop}>
+            <Backdrop open={loading && !datetime} className={classes.backdrop}>
                 <CircularProgress color="inherit"/>
             </Backdrop>
         );
@@ -59,7 +62,9 @@ const Thread = () => {
                 </Box>
                 <Grid container direction="column" spacing={3}>
                     <Messages />
-                    <MessageForm/>
+                    <MessageForm
+                        lastDatetime={datetime}
+                    />
                 </Grid>
             </Box>
         </>

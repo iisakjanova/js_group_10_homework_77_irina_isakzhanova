@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Grid, makeStyles, Paper, Typography, TextField, Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 
-import {getNewMessages, postMessage} from "../../store/actions/actions";
+import {getMessages, postMessage} from "../../store/actions/actions";
 import FileInput from "../../components/UI/FileInput/FileInput";
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +21,7 @@ const initialState = {
     image: null,
 };
 
-const MessageForm = () => {
+const MessageForm = ({lastDatetime}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ const MessageForm = () => {
             console.log(e.message);
         }
 
-        dispatch(getNewMessages());
+        dispatch(getMessages(lastDatetime));
     };
 
     return (
