@@ -21,6 +21,7 @@ const upload = multer({storage});
 router.post('/', upload.single('image'), (req, res) => {
     if (!req.body.message) {
         res.status(400).send({"error": "Message must be present in the request"});
+        return;
     }
 
     const message = {
@@ -33,9 +34,7 @@ router.post('/', upload.single('image'), (req, res) => {
     }
 
     const newMessage = fileDb.addItem(message);
-
     res.send(newMessage);
-
 });
 
 router.get('/', (req, res) => {

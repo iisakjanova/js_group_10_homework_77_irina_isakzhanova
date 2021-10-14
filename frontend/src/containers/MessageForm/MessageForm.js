@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Grid, makeStyles, Paper, Typography, TextField, Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-import {postMessage} from "../../store/actions/actions";
+import {getNewMessages, postMessage} from "../../store/actions/actions";
+
+import FileInput from "../../components/UI/FileInput/FileInput";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,6 +59,8 @@ const MessageForm = () => {
         if (message.message) {
             setMessage(initialState);
         }
+
+        dispatch(getNewMessages());
     };
 
     return (
@@ -89,8 +93,8 @@ const MessageForm = () => {
                             />
                         </Grid>
                         <Grid item xs>
-                            <TextField
-                                type="file"
+                            <FileInput
+                                label="Image"
                                 name="image"
                                 onChange={handleFileChange}
                             />
@@ -98,6 +102,7 @@ const MessageForm = () => {
                         <Grid item>
                             <Button
                                 variant="contained"
+                                color="primary"
                                 type="submit"
                             >
                                 Send

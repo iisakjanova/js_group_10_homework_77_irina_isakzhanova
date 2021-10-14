@@ -25,7 +25,7 @@ const Thread = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const loading = useSelector(state => state.loading)
+    const loading = useSelector(state => state.loading);
 
     useEffect(() => {
         dispatch(getMessages());
